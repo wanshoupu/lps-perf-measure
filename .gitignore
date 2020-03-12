@@ -1,0 +1,5 @@
+data/output.txt
+outputs/*
+.idea/
+*.class
+*.jar
