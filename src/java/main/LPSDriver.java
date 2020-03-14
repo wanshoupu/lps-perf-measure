@@ -6,17 +6,19 @@ import java.io.IOException;
 
 class LPSDriver {
     public static void main(String[] args) {
-        if (args.length != 3) {
+        if (args.length < 2) {
             throw new IllegalArgumentException("Wrong number of arguments");
         }
         int choice = Integer.valueOf(args[0]);
         String inputFile = args[1];
-        String outputFile = args[2];
+        String outputFile = args.length > 2 ? args[2] : null;
         LongestPalindrome solver = getSolver(choice);
-        System.out.printf("Input: %s, output: %s, algorithm: %s\n", inputFile,
-            outputFile, solver.getClass().getSimpleName());
+        // System.out.printf("Input: %s, output: %s, algorithm: %s\n", inputFile,
+        //     outputFile, solver.getClass().getSimpleName());
         String ans = solver.longestPalindrome(readInput(inputFile));
-        writeOutput(outputFile, ans);
+        if (outputFile != null)
+            writeOutput(outputFile, ans);
+        System.out.println(ans.length());
     }
 
     static String readInput(String inputFile) {
