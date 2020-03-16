@@ -9,16 +9,17 @@ mkdir -p outputs
 fileName=outputs/result
 currentTime=$(date "+%s")
 outputFileName=$fileName-$currentTime.csv
+inputFileName='tmpInput.txt'
 
 # Run the script with timeout.
 function runScript {
-    times=$(2>&1 time java -jar src/java/main/lps.jar $1 $2 $3)
+    times=$(2>&1 time java -Xmx12g -jar src/java/main/lps.jar $1 $2 $3)
     echo $times|cut -d ' ' -f 1,2,4,6|sed -e 's/ /,/g'
 }
 
 # Number of elements and algorithms arrays.
-uniqChars=(3) #
-elementCount=(100000000) #
+uniqChars=(5) #
+elementCount=(100000 1000000 10000000 100000000) #
 algorithms=(0 1 2) # 
 
 # Loop over the elements and algorithms and run the tests for every combination.
@@ -39,3 +40,4 @@ do
         done
     done
 done
+echo "runtime data is stored in $outputFileName"
